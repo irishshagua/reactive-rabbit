@@ -5,7 +5,6 @@ import java.util.Date
 import java.util.concurrent.TimeUnit
 
 import com.google.common.collect.ImmutableMap
-import com.google.common.net.MediaType
 import com.rabbitmq.client.{AMQP, ConnectionFactory, Envelope}
 import io.scalac.amqp._
 
@@ -60,7 +59,7 @@ private object Conversions {
 
     Message(
       body            = body,
-      contentType     = Option(properties.getContentType).map(MediaType.parse),
+      contentType     = Option(properties.getContentType),
       contentEncoding = Option(properties.getContentEncoding),
       headers         = Option(properties.getHeaders).map(_.toMap.mapValues(_.toString)).getOrElse(Map()),
       mode            = toDeliveryMode(properties.getDeliveryMode),
@@ -96,7 +95,7 @@ private object Conversions {
     }
 
     new AMQP.BasicProperties.Builder()
-      .contentType(message.contentType.map(_.toString).orNull)
+      .contentType(message.contentType.orNull)
       .contentEncoding(message.contentEncoding.orNull)
       .headers(message.headers)
       .deliveryMode(toDeliveryMode(message.mode))
