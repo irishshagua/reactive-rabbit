@@ -1,6 +1,6 @@
 ### Test
 Below is how we escape stars.   
-`This line has an escaped \*\* in it`
+`This line has an escaped ** in it`
 
 Reactive Streams: AMQP
 ====
